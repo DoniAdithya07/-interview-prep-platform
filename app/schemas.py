@@ -27,3 +27,14 @@ class StudyPlanRequest(BaseModel):
     role: str = Field(..., min_length=2, max_length=100)
     hours_per_week: int = Field(..., ge=1, le=80)
     duration_weeks: int = Field(..., ge=1, le=52)
+
+
+class AnswerSubmission(BaseModel):
+    interviewId: str = Field(..., min_length=1)
+    question: str = Field(..., min_length=5)
+    answer: str = Field(..., min_length=1)
+
+
+class AnswerEvaluationResponse(BaseModel):
+    score: int
+    feedback: str

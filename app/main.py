@@ -15,8 +15,9 @@ from app.schemas import (
     StudyPlanRequest,
     UserLogin,
     UserRegister,
+    AnswerSubmission,
 )
-from app.services import generate_question, generate_study_plan
+from app.services import generate_question, generate_study_plan, evaluate_answer
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -117,7 +118,7 @@ def question(payload: InterviewQuestion, user: dict = Depends(get_current_user))
         "duration": 0,
         "createdAt": datetime.utcnow(),
     }
-    db.collection("interviews").add(interview_doc)
+    _, doc_ref = db.collection("interviews").add(interview_doc)
 
     progress_ref = db.collection("progress").document(user["id"])
     progress_doc = progress_ref.get()
@@ -151,6 +152,21 @@ def question(payload: InterviewQuestion, user: dict = Depends(get_current_user))
             }
         )
 
+    result["interviewId"] = doc_ref.id
+    return result
+
+
+@app.post("/api/evaluate")
+def evaluate(payload: AnswerSubmission, user: dict = Depends(get_current_user)) -> dict:
+    result = evaluate_answer(payload)
+    
+    # Update the interview score and feedback
+    db.collection("interviews").document(payload.interviewId).update({
+        "answers": [payload.answer],
+        "score": result["score"],
+        "aiFeedback": result["feedback"]
+    })
+    
     return result
 
 
