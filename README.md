@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Smart Interview Prep Platform
 
-## Getting Started
+This repo now has two parts:
 
-First, run the development server:
+1. Backend (Python + FastAPI + Firestore Admin): `/app`
+2. Frontend (Next.js + Firebase Web SDK): `/frontend`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Backend Setup
+1. `python -m venv .venv`
+2. `.venv\Scripts\Activate.ps1`
+3. `pip install -r requirements.txt`
+4. Configure env:
+   - `JWT_SECRET_KEY=your-secret`
+   - `FIREBASE_CREDENTIALS_PATH=firebase_key.json`
+5. Put service account key JSON at project root as `firebase_key.json`
+6. Run: `python run.py`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Backend URL: `http://127.0.0.1:8000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Frontend Setup
+1. `cd frontend`
+2. `npm install`
+3. Create `frontend/.env.local` from `frontend/.env.example`
+4. Run: `npm run dev`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Frontend URL: `http://localhost:3000`
 
-## Learn More
+## Auth Pages (Phase 4 Step 7)
+- `frontend/app/auth/login/page.tsx`
+- `frontend/app/auth/register/page.tsx`
+- Shared auth state:
+  - `frontend/context/AuthContext.tsx`
+  - `frontend/app/providers.tsx`
+  - `frontend/app/layout.tsx`
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`onAuthStateChanged` is used in `AuthContext` to persist client auth sessions.
