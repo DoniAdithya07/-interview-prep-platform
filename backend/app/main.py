@@ -1,6 +1,14 @@
+import sys
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+
+# Ensure repository root is on sys.path so `backend.*` imports work when uvicorn reload spawns subprocesses.
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 from backend.app.api.auth import router as auth_router
 from backend.app.api.evaluate import router as evaluate_router
