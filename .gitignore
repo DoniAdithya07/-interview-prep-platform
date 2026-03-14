@@ -16,6 +16,8 @@
 # next.js
 /.next/
 /out/
+frontend/.next/
+frontend/node_modules/
 
 # production
 /build
@@ -24,6 +26,8 @@
 .DS_Store
 *.pem
 firebase_key.json
+.aider*
+frontend/.aider*
 
 # debug
 npm-debug.log*
@@ -31,9 +35,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 firebase-debug.log*
+error.log
 
-# env files (can opt-in for committing if needed)
+# env files
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -42,13 +48,10 @@ firebase-debug.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# firebase
-functions/node_modules/
-functions/lib/
-
 # python
 .venv/
 venv/
 __pycache__/
 *.pyc
-interview_prep.db
+*.db
+backend/.env

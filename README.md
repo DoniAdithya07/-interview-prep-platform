@@ -1,36 +1,51 @@
 ## Smart Interview Prep Platform
 
-This repo now has two parts:
+This repo is organized into:
 
-1. Backend (Python + FastAPI + Firestore Admin): `/app`
-2. Frontend (Next.js + Firebase Web SDK): `/frontend`
+1. Backend (FastAPI + Firebase Admin): `/backend`
+2. DevMentor app (Next.js + Firebase Web SDK): `/devmentor`
+3. Docker files: `/docker`
+
+## Project Structure
+
+```text
+interview-prep-platform/
+|- backend/
+|  |- app/
+|  |  |- api/
+|  |  |- core/
+|  |  |- database/
+|  |  |- models/
+|  |  |- services/
+|  |  `- main.py
+|  |- .env.example
+|  `- requirements.txt
+|- devmentor/
+|  |- app/
+|  |- components/
+|  |- context/
+|  |- hooks/
+|  |- lib/
+|  |- styles/
+|  `- types/
+|- docker/
+`- run.py
+```
 
 ## Backend Setup
 1. `python -m venv .venv`
 2. `.venv\Scripts\Activate.ps1`
-3. `pip install -r requirements.txt`
-4. Configure env:
-   - `JWT_SECRET_KEY=your-secret`
-   - `FIREBASE_CREDENTIALS_PATH=firebase_key.json`
-5. Put service account key JSON at project root as `firebase_key.json`
+3. `pip install -r backend/requirements.txt`
+4. Create `backend/.env` from `backend/.env.example`
+5. Put the Firebase service account key at the project root as `firebase_key.json`
 6. Run: `python run.py`
 
 Backend URL: `http://127.0.0.1:8000`
 
 ## Frontend Setup
-1. `cd frontend`
+1. `cd devmentor`
 2. `npm install`
-3. Create `frontend/.env.local` from `frontend/.env.example`
+3. Create `devmentor/.env.local` from `devmentor/.env.example`
 4. Run: `npm run dev`
 
 Frontend URL: `http://localhost:3000`
-
-## Auth Pages (Phase 4 Step 7)
-- `frontend/app/auth/login/page.tsx`
-- `frontend/app/auth/register/page.tsx`
-- Shared auth state:
-  - `frontend/context/AuthContext.tsx`
-  - `frontend/app/providers.tsx`
-  - `frontend/app/layout.tsx`
-
-`onAuthStateChanged` is used in `AuthContext` to persist client auth sessions.
