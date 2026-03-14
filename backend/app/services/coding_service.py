@@ -5,10 +5,8 @@ import tempfile
 from json import JSONDecodeError
 from pathlib import Path
 
-
 TEMP_ROOT = Path(__file__).resolve().parents[3] / ".codex-tmp"
 TEMP_ROOT.mkdir(parents=True, exist_ok=True)
-
 
 DISALLOWED_PATTERNS = [
     "import os",

@@ -11,7 +11,6 @@ except ImportError:
 def setup_monitoring() -> None:
     if not settings.sentry_dsn or sentry_sdk is None or FastApiIntegration is None:
         return
-
     sentry_sdk.init(
         dsn=settings.sentry_dsn,
         environment=settings.environment,

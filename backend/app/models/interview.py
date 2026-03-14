@@ -1,6 +1,5 @@
 from pydantic import BaseModel, Field
 
-
 INTERVIEW_MODE_PATTERN = "^(technical|coding|behavioral|hr|system-design|ai-mock)$"
 
 

@@ -3,9 +3,9 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-
 REPO_ROOT = Path(__file__).resolve().parents[3]
 BACKEND_ROOT = REPO_ROOT / "backend"
+
 load_dotenv(BACKEND_ROOT / ".env")
 
 
@@ -16,6 +16,7 @@ class Settings:
             "http://localhost:3000,http://127.0.0.1:3000",
         )
         self.cors_origins = [origin.strip() for origin in cors_origins.split(",") if origin.strip()]
+
         firebase_credentials_path = os.getenv(
             "FIREBASE_CREDENTIALS_PATH",
             str(REPO_ROOT / "firebase_key.json"),
@@ -29,6 +30,7 @@ class Settings:
             else:
                 firebase_credentials = repo_relative
         self.firebase_credentials_path = str(firebase_credentials)
+
         self.ai_provider = os.getenv("AI_PROVIDER", "ollama")
         self.ollama_base_url = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
         self.ollama_model = os.getenv("OLLAMA_MODEL", "llama3")

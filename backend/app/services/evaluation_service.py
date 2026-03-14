@@ -1,7 +1,6 @@
 from backend.app.models.interview import AnswerSubmission
 from backend.app.services.ai_service import evaluate_with_gemini
 
-
 REASONING_MARKERS = ["because", "therefore", "tradeoff", "trade-off", "impact", "decision", "why"]
 EXAMPLE_MARKERS = ["example", "for instance", "project", "production", "customer", "team"]
 TECHNICAL_MARKERS = [
@@ -52,6 +51,7 @@ def _compute_rubric(answer: str, question: str) -> tuple[dict, list[str]]:
     if any(term in normalized for term in ["tradeoff", "trade-off", "pros", "cons", "limitation"]):
         technical_accuracy += 10
         reasons.append("Answer discusses tradeoffs or limitations.")
+
     if question.lower().find("behavior") >= 0 or any(
         term in question.lower() for term in ["conflict", "teammate", "challenge", "situation"]
     ):
@@ -167,7 +167,6 @@ def evaluate_answer(payload: AnswerSubmission) -> dict:
     confidence_reasons = rubric_reasons + [
         "AI scoring was unavailable, so the score uses a structured heuristic rubric.",
     ]
-
     return {
         "score": rubric_score,
         "feedback": feedback,

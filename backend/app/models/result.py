@@ -55,7 +55,7 @@ class EvaluationResult(BaseModel):
     starBreakdown: StarBreakdown | None = None
     strengths: list[str] = Field(default_factory=list)
     improvements: list[str] = Field(default_factory=list)
-    accuracy: AccuracyMetadata
+    accuracy: AccuracyMetadata | None = None
 
 
 class ResumeAnalysisResult(BaseModel):
@@ -65,7 +65,7 @@ class ResumeAnalysisResult(BaseModel):
     matchedKeywords: list[str] = Field(default_factory=list)
     summary: str
     sectionFeedback: list[str] = Field(default_factory=list)
-    accuracy: AccuracyMetadata
+    accuracy: AccuracyMetadata | None = None
 
 
 class ProgressResponse(BaseModel):

@@ -12,7 +12,6 @@ try:
 except ImportError:
     Document = None
 
-
 SUPPORTED_RESUME_TYPES = {
     "text/plain",
     "application/pdf",
@@ -27,6 +26,7 @@ async def extract_resume_text(upload: UploadFile) -> str:
 
     content = await upload.read()
     await upload.close()
+
     if not content:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Resume file is empty")
     if len(content) > MAX_RESUME_BYTES:
@@ -65,7 +65,6 @@ async def extract_resume_text(upload: UploadFile) -> str:
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Resume text could not be extracted. Try a clearer PDF or a TXT file.",
         )
-
     return normalized[:12000]
 
 

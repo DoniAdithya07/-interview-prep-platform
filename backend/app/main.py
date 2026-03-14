@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from backend.app.api.auth import router as auth_router
 from backend.app.api.evaluate import router as evaluate_router

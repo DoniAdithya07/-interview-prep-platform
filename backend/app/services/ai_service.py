@@ -43,7 +43,7 @@ def _generate_json(prompt: str) -> dict | list | None:
         payload = json.loads(response.text)
         set_cached_value(cache_key, payload, ttl_seconds=3600)
         return payload
-    except Exception:
+    except Exception:  # noqa: BLE001
         logger.exception("Gemini request failed")
         return None
 

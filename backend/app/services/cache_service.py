@@ -10,7 +10,6 @@ try:
 except ImportError:
     redis = None
 
-
 _memory_cache: dict[str, tuple[float, Any]] = {}
 _redis_client = None
 
@@ -25,7 +24,7 @@ def _get_redis_client():
         _redis_client = redis.Redis.from_url(settings.redis_url, decode_responses=True)
         _redis_client.ping()
         return _redis_client
-    except Exception:
+    except Exception:  # noqa: BLE001
         _redis_client = None
         return None
 
@@ -42,7 +41,7 @@ def get_cached_value(key: str) -> Any | None:
             value = client.get(key)
             if value is not None:
                 return json.loads(value)
-        except Exception:
+        except Exception:  # noqa: BLE001
             pass
 
     entry = _memory_cache.get(key)
@@ -61,7 +60,7 @@ def set_cached_value(key: str, value: Any, ttl_seconds: int = 3600) -> None:
         try:
             client.setex(key, ttl_seconds, json.dumps(value, default=str))
             return
-        except Exception:
+        except Exception:  # noqa: BLE001
             pass
 
     _memory_cache[key] = (time.time() + ttl_seconds, value)

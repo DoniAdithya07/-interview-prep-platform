@@ -91,6 +91,5 @@ def random_question(mode: str, topic: str | None = None, exclude: str | None = N
     if general:
         return random.choice(general)
 
-    # No topic matches; pick any question from the mode
     flat = [q for questions in bank.values() for q in questions if exclude is None or q != exclude or len(questions) == 1]
     return random.choice(flat) if flat else None
